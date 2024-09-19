@@ -1,32 +1,8 @@
-export function ProductsIndex(props) {
-  console.log(props);
+import PropTypes from "prop-types";
 
-  const products = [
-    {
-      id: 1,
-      name: "Name 1",
-      description: "Description 1",
-      price: 100,
-      image_url: "placeholder.jpg",
-    },
-    {
-      id: 1,
-      name: "Name 2",
-      description: "Description 2",
-      price: 200,
-      image_url: "placeholder.jpg",
-    },
-    {
-      id: 1,
-      name: "Name 3",
-      description: "Description 3",
-      price: 300,
-      image_url: "placeholder.jpg",
-    },
-  ];
-
+export function ProductsIndex({ products }) {
   return (
-    <section className="products-index">
+    <div id="products-index">
       <h2>All Products</h2>
       <div className="product-list">
         {products.map((product) => (
@@ -34,11 +10,27 @@ export function ProductsIndex(props) {
             <img src={product.image_url} />
             <h3>{product.name}</h3>
             <p>{product.description}</p>
-            <p className="price">${product.price.toFixed(2)}</p>
-            <button>Add to Cart</button>
+            <p className="price">
+              $
+              {typeof product.price === "number"
+                ? product.price.toFixed(2)
+                : parseFloat(product.price).toFixed(2) || "N/A"}
+            </p>
           </div>
         ))}
       </div>
-    </section>
+    </div>
   );
 }
+
+ProductsIndex.propTypes = {
+  products: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      name: PropTypes.string.isRequired,
+      description: PropTypes.string.isRequired,
+      price: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
+      image_url: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+};
