@@ -1,4 +1,6 @@
-export function ProductsIndex() {
+export function ProductsIndex(props) {
+  console.log(props);
+
   const products = [
     {
       id: 1,
@@ -25,11 +27,11 @@ export function ProductsIndex() {
 
   return (
     <section className="products-index">
-      <h2>Our Products</h2>
+      <h2>All Products</h2>
       <div className="product-list">
         {products.map((product) => (
           <div key={product.id} className="product-card">
-            <img src={product.image_url} alt={product.name} />
+            <img src={product.image_url} />
             <h3>{product.name}</h3>
             <p>{product.description}</p>
             <p className="price">${product.price.toFixed(2)}</p>
